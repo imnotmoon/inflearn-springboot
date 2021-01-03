@@ -3,6 +3,8 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,10 +14,21 @@ import java.util.Optional;
  * 1. Service 같은 클래스는 비즈니스 로직에 따라 네이밍하는게 좋음
  * 2. Optional과 관련 메소드
  */
+
+/**
+ * Service : spring이 올라올때 컨테이너에 등록해줌. 안하면 그냥 순수한 자바클래스
+ *          비즈니스 로직을 만듦.
+ */
+//@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    /**
+     * MemoryMemberRepository가 연결
+     * @param memberRepository
+     */
+//    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
