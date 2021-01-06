@@ -1,27 +1,37 @@
 package hello.hellospring;
 
-import hello.hellospring.repository.JdbcMemberRepository;
-import hello.hellospring.repository.JdbcTemplateMemberRepository;
-import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+//    private DataSource dataSource;
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+////        datasource 주입
+//        this.dataSource = dataSource;
+//    }
+
+//    private EntityManager em;
+//
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-//        datasource 주입
-        this.dataSource = dataSource;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
-
 
     /**
      * 스프링이 시작하면 아래 두 빈을 컨테이너에 등록하고
@@ -39,11 +49,11 @@ public class SpringConfig {
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository() {
+//    @Bean
+//    public MemberRepository memberRepository() {
 
         /**
          * 개방-폐쇄 원칙(OCP; Open-Closed Principle)
@@ -60,7 +70,10 @@ public class SpringConfig {
 //        2. access db via pure jdbc
 //        return new JdbcMemberRepository(dataSource);
 //        3. access db via jdbcTemplate
-        return new JdbcTemplateMemberRepository(dataSource);
-    }
+//        return new JdbcTemplateMemberRepository(dataSource);
+//        4. access db via JPA
+//        return new JpaMemberRepository(em);
+//    }
+
 
 }
