@@ -8,6 +8,7 @@ import java.util.*;
 
 /**
  * Repository : 데이터를 저장.
+ * 비즈니스 로직이 바뀌면서 안씀
  */
 //@Repository
 public class MemoryMemberRepository implements MemberRepository {
