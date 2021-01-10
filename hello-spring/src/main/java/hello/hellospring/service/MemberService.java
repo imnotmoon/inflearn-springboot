@@ -39,6 +39,7 @@ public class MemberService {
      */
     @Transactional
     public Long join(Member member) {
+        long start = System.currentTimeMillis();
         // 같은 이름이 있는 중복 회원X
         // findByName의 결과가 optional이라 바로 ifPresent 메소드 사용 가능
         validateDuplicateMember(member);    // 중복 회원 검증
@@ -48,6 +49,7 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
+        long start = System.currentTimeMillis();
         memberRepository.findByName(member.getName())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -58,10 +60,13 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findMembers() {
+
+        long start = System.currentTimeMillis();
         return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId) {
+        long start = System.currentTimeMillis();
         return memberRepository.findById(memberId);
     }
 
